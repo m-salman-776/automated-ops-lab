@@ -20,7 +20,7 @@ jobs:
 
       - name: "Terraform Init"
         run: terraform version
-        working-directory: ../../environments/${{ inputs.environment }}
+        working-directory: environments/${{ inputs.environment }}
 
       # - name: "Terraform Plan"
       #   run: terraform plan
