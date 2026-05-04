@@ -1,0 +1,44 @@
+name: "Terraform Lint & Security Scan"
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+
+jobs:
+  terraform-checks:
+    name: "Lint and Security"
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.0"
+
+      # Initialize to download providers
+      - name: Terraform Init
+        run: terraform init -backend=false
+
+      # Check for syntax errors
+      - name: Terraform Format Check
+        run: terraform fmt -check
+
+      # Linter to find common mistakes (cloud-specific)
+      - name: TFLint
+        uses: terraform-linters/setup-tflint@v4
+        with:
+          tflint_version: v0.50.0
+
+      - name: Run TFLint
+        run: tflint -f compact
+
+      # Security Scan for vulnerabilities
+      - name: tfsec
+        uses: aquasecurity/tfsec-action@v1.0.0
+        with:
+          working_directory: .
