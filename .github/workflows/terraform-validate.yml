@@ -53,5 +53,5 @@ jobs:
           go-version: '^1.17.0'
       - name: Run Go mod and Download test
         run: |
-          go mod dowload
+          go mod download
           go test
