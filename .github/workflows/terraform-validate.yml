@@ -44,10 +44,14 @@ jobs:
           working_directory: .
   print-name:
 
-    name: "test"
+    name: "Go installation step"
     runs-on: ubuntu-latest
     steps:
-      - name: Print Environment Name
+      - name: Install Go
+        uses: actions/setup-go@v2
+        with:
+          go-version: '^1.17.0'
+      - name: Run Go mod and Download test
         run: |
-          echo "Environment Name: ${{ vars.ENVIRONMENT_NAME }}"
-          echo "Environment Name: ${{ vars.ENVIRONMENT_NAME }}"
+          go mod dowload
+          go test
