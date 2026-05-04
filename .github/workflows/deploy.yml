@@ -21,6 +21,7 @@ jobs:
           fi
 
   deploy-dev:
+    needs: verify-prerequisites
     uses: ./.github/workflows/template_01.yml
     with:
       environment: dev
@@ -28,6 +29,7 @@ jobs:
       api_key: ${{ secrets.API_KEY }}
 
   deploy-prod:
+    needs: deploy-dev
     uses: ./.github/workflows/template_01.yml
     with:
       environment: prod
