@@ -12,3 +12,20 @@ jobs:
   terraform:
     runs-on: ubuntu-latest
     name : "Run Terraform ${{ inputs.environment }}"
+    steps:
+      - name: "Checkout code"
+        run: echo "Checking out code..." # Placeholder for actions/checkout@v4
+
+      # - name: "Set up Terraform"
+      #   uses: hashicorp/setup-terraform@v1
+      #   with:
+      #     terraform_version: 1.0.0
+
+      # - name: "Terraform Init"
+      #   run: terraform init
+
+      # - name: "Terraform Plan"
+      #   run: terraform plan
+
+      # - name: "Terraform Apply"
+      #   run: terraform apply -auto-approve
