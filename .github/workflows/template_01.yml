@@ -20,6 +20,13 @@ jobs:
         with:
           terraform_version: "1.15.0"
 
+      - name : Git Credential
+        uses:  aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ap-south-1
+
       - name: "Terraform Init"
         run: terraform init
         working-directory: environments/${{ inputs.environment }}
@@ -28,5 +35,6 @@ jobs:
         run: terraform plan
         working-directory: ./environments/${{ inputs.environment }}
 
-      # - name: "Terraform Apply"
-      #   run: terraform apply -auto-approve
+      - name: "Terraform Apply"
+        run: terraform apply -auto-approve
+        working-directory: ./environments/${{ inputs.environment }}
