@@ -1,0 +1,14 @@
+name : Terraform template
+on : 
+  workflow_call:
+    secrets:
+      api_key:
+        required: true
+    inputs:
+      environment:
+        required: true
+        type: string
+jobs:
+  terraform:
+    runs-on: ubuntu-latest
+    name : "Run Terraform ${{ inputs.environment }}"
