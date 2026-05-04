@@ -1,17 +1,44 @@
-name: First workflow
-on:
-  push:
-    branches: 
-      - main
+# name: First workflow
+# on:
+#   push:
+#     branches: 
+#       - main
 
+# jobs:
+#   job1:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Print Hello
+#         run: echo "Hello from Job 1"
+#   job2:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Print Hello
+#         run: echo "Hello from Job 4"
+
+
+name: "Task : Security check and Environment verification"
+on : [push]
 jobs:
-  job1:
+  security-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Hello
-        run: echo "Hello from Job 1"
-  job2:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name : Security Check
+        run: | 
+          if [ "${{secrets.PASSWORD}}" == "" ]; then
+            echo "Critical : Password not set"
+            exit 1
+
+          else echo "Security Check Passed"
+          fi
+  version-check:
     runs-on: ubuntu-latest
     steps:
-      - name: Print Hello
-        run: echo "Hello from Job 4"
+      - name: Terraform version check
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.7.0"
+      - name: Check Terraform version
+        run: terraform version
