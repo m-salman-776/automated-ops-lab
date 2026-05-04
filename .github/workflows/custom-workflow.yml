@@ -44,6 +44,7 @@ jobs:
         run: terraform version
   summary-report:
     runs-on: ubuntu-latest
+    needs: [security-check, version-check]
     steps:
       - name: Generate summary report
         run: |
