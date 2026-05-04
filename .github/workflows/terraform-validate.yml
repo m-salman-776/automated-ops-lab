@@ -45,7 +45,8 @@ jobs:
   print-name:
     
     name: "test"
-    run-on: 
-      ubuntu-latest
-    run: 
-      echo "Environment Name: ${var.env_name}"
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Environment Name
+        run: |
+          echo "Environment Name: ${var.env_name}"
