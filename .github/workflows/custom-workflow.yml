@@ -42,3 +42,14 @@ jobs:
           terraform_version: "1.7.0"
       - name: Check Terraform version
         run: terraform version
+  summary-report:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate summary report
+        run: |
+          echo "Security Check Summary"
+          echo "======================="
+          echo "Password Check: ${{ steps.security-check.outputs.result }}"
+          echo "Version Check: ${{ steps.version-check.outputs.result }}"
+          echo "Workflow triggered by : ${{github.actor}}"
+          echo "Repository : ${{github.repository}}"
