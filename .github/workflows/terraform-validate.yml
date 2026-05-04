@@ -43,10 +43,11 @@ jobs:
         with:
           working_directory: .
   print-name:
-    
+
     name: "test"
     runs-on: ubuntu-latest
     steps:
       - name: Print Environment Name
         run: |
-          echo "Environment Name: ${var.env_name}"
+          echo "Environment Name: ${{ vars.ENVIRONMENT_NAME }}"
+          echo "Environment Name: ${{ vars.ENVIRONMENT_NAME }}"
