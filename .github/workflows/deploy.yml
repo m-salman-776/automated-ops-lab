@@ -1,0 +1,35 @@
+name : "Deploy Infra"
+
+on : 
+  push:
+    branches: [main]
+
+concurrency:
+  group: ${{github.workflow}}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify-prerequisites:
+    runs-on: ubuntu-latest
+    steps:
+      - name: "Check Terraform Format"
+        run: | 
+          if [ "${{ secrets.API_KEY }}" == "" ]; then
+            echo "Critical : API_KEY not set"
+            exit 1
+          else echo "API_KEY is set, proceeding with deployment"
+          fi
+
+  deploy-dev:
+    uses: ./.github/workflows/template_01.yml
+    with:
+      environment: dev
+    secrets:
+      api_key: ${{ secrets.API_KEY }}
+
+  deploy-prod:
+    uses: ./.github/workflows/template_01.yml
+    with:
+      environment: prod
+    secrets:
+      api_key: ${{ secrets.API_KEY }}
