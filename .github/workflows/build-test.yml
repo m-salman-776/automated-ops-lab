@@ -1,0 +1,13 @@
+name : Build Job
+on:
+  push:
+    branches:
+      - main
+jobs:
+  bazelBuild:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: bazelbuild/setup-bazelisk@v3
+      - run : bazel build //...
+      - run : bazel test //...

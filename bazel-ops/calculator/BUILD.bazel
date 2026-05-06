@@ -1,0 +1,16 @@
+py_library(
+    name = "calculator_lib",
+    srcs = ["calculator.py"],
+)
+
+py_binary(
+    name = "calculator",
+    srcs = ["main.py"],
+    deps = [":calculator_lib"],
+)
+
+py_test (
+    name = "calculator_test",
+    srcs = ["calculator_test.py"],
+    deps = [":calculator_lib"],
+)
